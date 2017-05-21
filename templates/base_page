@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title> - 义美BMS</title>
+	<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="navbar navbar-default">
+				<div class="navbar-header">
+					<a href="#" class="navbar-brand">
+					 &nbsp;义美BMS</a>
+				</div>
+				<div id="solheng" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="{{ url_for('feedback') }}">首 页</a></li>
+						<li><a href="{{ url_for('article.article_list') }}">新闻资讯</a></li>
+						<li><a href="{{ url_for('product.product_list') }}">产品中心</a></li>
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">义美图书 <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="{{ url_for('feedback_list') }}">图书列表</a></li>
+								<li><a href="{{ url_for('reg_user') }}">用户注册</a></li>
+							</ul>
+						</li>
+					</ul>
+					<form action="#" class="navbar-form navbar-left">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="搜索...">
+						</div>
+						<input type="submit" value="搜索" class="btn btn-default">
+					</form>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员：{{ session['admin'] if session['admin'] else '未登录'}} <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="{{ url_for('logout') }}">退出登录</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<ul class="breadcrumb">
+				<li><a href="/">首页</a></li>
+				<li class="active">图书列表</li>
+			</ul>
+		</div>
+
+		{% block main_content %}
+
+		{% endblock %}
+		<div class="row">
+			<div class="well">
+				<div class="text-center">
+					&copy;&nbsp;义美集团 版权所有 YIMEI.com
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
