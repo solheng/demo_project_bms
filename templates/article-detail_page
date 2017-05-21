@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>文章信息</title>
+</head>
+<body>
+<h1>文章标题{{ item.id }}</h1>
+</body>
+</html>
