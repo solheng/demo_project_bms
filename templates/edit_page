@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>图书信息 编辑操作</strong></div>
+				<div class="panel-body">
+					<form action="{{ url_for('save_feedback') }}" method="post" class="form-horizontal">
+						<div class="form-group">
+							<label for="book_number" class="control-label col-md-3">
+								<strong>编号</strong>
+							</label>
+							<div class="col-md-4">
+								<input type="text" value="{{ item['Book_Number'] }}" class="form-control" id="book_number" name="book_number">
+								<input type="hidden" id="rowid" name="rowid" value="{{ item['rowid'] }}">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="title" class="control-label col-md-3">
+								<strong>标题</strong>
+							</label>
+							<div class="col-md-4">
+								<input type="text" value="{{ item['Title'] }}" class="form-control" id="title" name="title">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="kind_number" class="control-label col-md-3">
+								<strong>分类</strong>
+							</label>
+							<div class="col-md-2">
+								<select name="kind_number" id="kind_number" class="form-control">
+									{% for category in categories %}
+										<option {{ 'selected=selected' if item.CategoryID == category.rowid else '' }} value="{{ category['rowid'] }}" > {{ category['CategoryName'] }}</option>
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="author" class="control-label col-md-3">
+								<strong>作者</strong>
+							</label>
+							<div class="col-md-4">
+								<input type="text" value="{{ item['Author'] }}" class="form-control" id="author" name="author">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="press" class="control-label col-md-3">
+								<strong>出版社</strong>
+							</label>
+							<div class="col-md-4">
+								<input type="text" value="{{ item['Press'] }}" class="form-control" id="press" name="press">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="ISBN" class="control-label col-md-3">
+								<strong>ISBN号</strong>
+							</label>
+							<div class="col-md-4">
+								<input type="text" value="{{ item['Isbn'] }}" class="form-control" id="ISBN" name="ISBN">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="images" class="control-label col-md-3">
+								<strong>封面图片</strong>
+							</label>
+							<div class="col-md-4">
+								<img src="{{ url_for('render_file',filename=item.Images) }}" alt="{{ item.Title }}">
+								<input type="file" value="{{ item['Images'] }}" id="images" name="images">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="text" class="control-label col-md-3">
+								<strong>序言</strong>
+							</label>
+							<div class="col-md-6">
+								<textarea class="form-control" id="text" name="text" cols="30" rows="10">{{ item['Text'] if item['Text'] }}
+								</textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label name="sales_status" class="control-label col-md-3">
+								<strong>销售状态</strong>
+							</label>
+							<label for="on_sale" class="control-label col-md-2">
+								<input type="radio" id="on_sale" name="sales_status" value="1" {{ 'checked=checked' if item['Sales_Status']==1 else'' }}>正在销售
+							</label>
+							<label for="stop_sale" class="control-label col-md-2">
+								<input type="radio" id="stop_sale" name="sales_status" value="0">停止销售
+							</label>
+
+						</div>
+						<div class="form-group">
+							<label name="choiceness" class="control-label col-md-3">
+								<strong>是否精选</strong>
+							</label>
+							<label for="choiceness" class="control-label col-md-2">
+								<input type="radio" id="choiceness" name="choiceness" value="1" {{ 'checked=checked' if item['Choiceness']==1 else'' }} >是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</label>
+							<label for="no_choiceness" class="control-label col-md-2">
+								<input type="radio" id="no_choiceness" name="choiceness" value="0">否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</label>
+						</div>
+						<div class="form-group">
+							<label for="Publication_date" class="control-label col-md-3">
+								<strong>出版日期</strong>
+							</label>
+							<div class="control-label col-md-2">
+								<input type="date" name="Publication_date" id="Publication_date" value="{{ item['Publication_Date'] }}">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="Release_time" class="control-label col-md-3">
+								<strong>发布时间</strong>
+							</label>
+							<div class="control-label col-md-2">
+								<input type="date" name="Release_time" id="Release_time" value="{{ item['Release_Time'] }}">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-offset-3">
+								<span>&nbsp;&nbsp;&nbsp;</span>
+								<input type="submit" class="btn btn-primary" value="提交">
+								<input type="button" class="btn btn-default" value="重置">
+								<a href="{{ url_for('feedback_list') }}" class="btn btn-default">返回列表</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
