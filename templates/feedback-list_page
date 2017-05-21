@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <form action="#" class="form-inline">
+                    <input type="text" class="form-control" name="key" id="key" placeholder="{{ keys }}">
+                    <input type="submit" class="btn btn-primary" value="搜索" >
+                </form>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                <tr>
+                    <th>#</th>
+                    <th>标题</th>
+                    <th>分类</th>
+                    <th>作者</th>
+                    <th>出版社</th>
+                    <th>ISBN号</th>
+                    <th>封面图片</th>
+                    <th>序言</th>
+                    <th>销售状态</th>
+                    <th>是否精选</th>
+                    <th>出版日期</th>
+                    <th>发布时间</th>
+                    <th> 操 作 </th>
+                </tr>
+                {% for item in items %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ item['Title'] }}</td>
+                    <td>{{ item['CategoryName'] }}</td>
+                    <td>{{ item['Author'] }}</td>
+                    <td>{{ item.get('Press') }}</td>
+                    <td>{{ item.get('Isbn') }}</td>
+                    <td>{{ item.Images }}</td>
+                    <td>{{ item.Text }}</td>
+                    <td><span class="label label-{{ 'danger' if item['Sales_Status'] == 0 else 'success' }}">{{ '停止销售' if item.Sales_Status == 0 else '正在销售' }}</span></td>
+                    <td><span class="label label-{{ 'danger' if item['Choiceness'] == 0 else 'success' }}">{{ '否' if item.Choiceness == 0 else '是' }}</span></td>
+                    <td>{{ item.Publication_Date }}</td>
+                    <td>{{ item.Release_Time }}</td>
+                    <td>
+                        <a href="#" class="btn btn-default btn-xs" title="查看"><i class="fa fa-search"></i></a>
+                        <a href="{{ url_for('edit_feedback', id = item.rowid) }}" class="btn btn-default btn-xs" title="编辑"><i class="fa fa-pencil"></i></a>
+                        <a href="{{ url_for('delete_feedback',id = item.rowid) }}" class="btn btn-default btn-xs" title="删除"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
